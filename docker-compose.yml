@@ -1,6 +1,6 @@
 services:
   mysqllab:
-    build: ./config_database
+    build: .
     image: aqualife-mysql:local
     container_name: aqualife_mysql
     restart: unless-stopped
@@ -14,10 +14,19 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p$$MYSQL_ROOT_PASSWORD"]
+      # -h localhost hace que mysqladmin se conecte por socket Unix, que ya
+      # responde durante el arranque temporal de MySQL (mientras todavia se
+      # esta cargando init.sql), dando un falso "healthy" prematuro. Forzamos
+      # TCP con --protocol=tcp: el servidor temporal arranca con
+      # --skip-networking (no escucha TCP), asi que el ping solo pasa cuando
+      # el servidor real (post-carga) ya esta escuchando en el puerto 3306.
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "--protocol=tcp", "-u", "root", "-p$$MYSQL_ROOT_PASSWORD"]
       interval: 10s
       timeout: 5s
       retries: 5
+      # La carga inicial de init.sql (varios millones de filas) puede tardar
+      # ~2-3 minutos; start_period cubre ese arranque sin marcar "unhealthy".
+      start_period: 240s
     networks:
       - aqualife_net
 

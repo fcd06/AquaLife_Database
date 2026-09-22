@@ -1,4 +1,3 @@
-
 # Para que inicien la base de datos que estaremos usando
 
 - Le puse la default seed como 33 para no tener la que el profe da por defecto (42)
@@ -42,7 +41,7 @@ cd Aqualife_Database
 Solo iniciamos mysqllab por ahora es el unico que usamos ya que aun no vemos otros tipos de bases de datos
 
 ```Shell
-docker compose build --progress=plain                
+docker compose build --progress=plain            
 docker compose up -d mysqllab
 ```
 
@@ -62,7 +61,7 @@ El prompt de la consola deberia verse algo como:
 mysql>
 ```
 
-Ahi ya pueden tirar codigo sql 
+Ahi ya pueden tirar codigo sql
 
 ```SQL
 SHOW DATABASES; --Para ver las bases de datos en el contenedor
@@ -81,7 +80,7 @@ docker compose down -v
 Para volver a iniciar la base de datos
 
 ```Shell
-docker compose build --progress=plain                
+docker compose build --progress=plain            
 docker compose up -d mysqllab
 ```
 

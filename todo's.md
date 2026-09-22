@@ -1,4 +1,3 @@
-
 # TODO List - Proyecto Final AquaLife (Bases de Datos)
 
 > **Entrega y Defensa:** Semana 11
@@ -12,9 +11,9 @@
   - [X] Realizar *fork* del repositorio base.
   - [X] Clonar localmente y agregar colaboradores del equipo.
   - [X] Crear y verificar el archivo `.gitignore` (excluir credenciales, `__pycache__`, entorno virtual, etc.).
-- [ ] **0.2 Despliegue de Servicios Docker**
-  - [ ] Levantar el contenedor de MySQL.
-  - [ ] Verificar la correcta inicialización de la BD a través del script `init.sql`.
+- [X] **0.2 Despliegue de Servicios Docker**
+  - [X] Levantar el contenedor de MySQL.
+  - [X] Verificar la correcta inicialización de la BD a través del script `init.sql`.
   - [ ] Configurar contenedores para BDs adicionales (MongoDB, Neo4j, etc.) en `docker-compose.yml` a medida que se requieran.
 
 ---
