@@ -1,6 +1,6 @@
 services:
   mysqllab:
-    build: .
+    build: ./config_database
     image: aqualife-mysql:local
     container_name: aqualife_mysql
     restart: unless-stopped
