@@ -41,7 +41,7 @@ cd Aqualife_Database
 Solo iniciamos mysqllab por ahora es el unico que usamos ya que aun no vemos otros tipos de bases de datos
 
 ```Shell
-docker compose build --progress=plain          
+docker compose build --progress=plain        
 docker compose up -d mysqllab
 ```
 
@@ -80,11 +80,16 @@ docker compose down -v
 Para volver a iniciar la base de datos
 
 ```Shell
-docker compose build --progress=plain          
+docker compose build --progress=plain        
 docker compose up -d mysqllab
 ```
 
 Recuerden cada que quieran trastear en la base de datos hacer el comando del paso 4 en la terminal
+
+
+# HAGAN LO SIGUIENTE A MI ME SIRVIO
+
+el lio era que en docker-compose.yml tenia un limite maximo de mb por paquete, y como eran millones de filas que se insertaban de un palo daba error y cambie el .yml, ahora deberia funcionar, demora un poco(bastante) en ponerse ready
 
 ```Shell
 # 1. Borrar todo
@@ -96,4 +101,26 @@ sleep 5
 
 # 3. Sigue el log en tiempo real hasta que vean "Server is ready"
 docker logs -f aqualife_mysql --tail=100
+```
+
+Cuando les salga algo tipo, el siguiente mensaje prueben las tablas
+
+```
+2026-09-26 22:50:45+00:00 [Note] [Entrypoint]: /usr/local/bin/docker-entrypoint.sh: running /docker-entrypoint-initdb.d/zzz-cleanup.sh
+rm: cannot remove '/docker-entrypoint-initdb.d/init.sql': Permission denied
+2026-09-26 22:50:45+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.0.46-1.el9 started.
+2026-09-26 22:50:46+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+2026-09-26 22:50:46+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.0.46-1.el9 started.
+'/var/lib/mysql/mysql.sock' -> '/var/run/mysqld/mysqld.sock'
+2026-09-26T22:50:46.868294Z 0 [Warning] [MY-011068] [Server] The syntax '--skip-host-cache' is deprecated and will be removed in a future release. Please use SET GLOBAL host_cache_size=0 instead.
+2026-09-26T22:50:46.874838Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.0.46) starting as process 1
+2026-09-26T22:50:46.890200Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2026-09-26T22:50:50.325548Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2026-09-26T22:50:51.123604Z 0 [System] [MY-010229] [Server] Starting XA crash recovery...
+2026-09-26T22:50:51.132942Z 0 [System] [MY-010232] [Server] XA crash recovery finished.
+2026-09-26T22:50:51.751702Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+2026-09-26T22:50:51.751775Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+2026-09-26T22:50:51.756850Z 0 [Warning] [MY-011810] [Server] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
+2026-09-26T22:50:51.801117Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060, socket: /var/run/mysqld/mysqlx.sock
+2026-09-26T22:50:51.801322Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.46'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  MySQL Community Server - GPL.
 ```
