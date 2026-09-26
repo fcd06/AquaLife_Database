@@ -41,7 +41,7 @@ cd Aqualife_Database
 Solo iniciamos mysqllab por ahora es el unico que usamos ya que aun no vemos otros tipos de bases de datos
 
 ```Shell
-docker compose build --progress=plain            
+docker compose build --progress=plain          
 docker compose up -d mysqllab
 ```
 
@@ -80,8 +80,20 @@ docker compose down -v
 Para volver a iniciar la base de datos
 
 ```Shell
-docker compose build --progress=plain            
+docker compose build --progress=plain          
 docker compose up -d mysqllab
 ```
 
 Recuerden cada que quieran trastear en la base de datos hacer el comando del paso 4 en la terminal
+
+```Shell
+# 1. Borrar todo
+docker compose down -v
+
+# 2. Iniciar y mirar el log 
+docker compose up -d --build mysqllab
+sleep 5 
+
+# 3. Sigue el log en tiempo real hasta que vean "Server is ready"
+docker logs -f aqualife_mysql --tail=100
+```

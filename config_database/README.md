@@ -28,7 +28,7 @@ Este proyecto contiene la configuración de Docker para crear y cargar automáti
    ```
    El resultado esperado es:
    ```
-   ee4fc1f407daa82927d0be4459333810f65e6b474abec667d1f6f9f37d28f7f5  /docker-entrypoint-initdb.d/init.sql
+   d7a9c8df86a3ebf5cbaa20e76c23ed9d0f1b161c85684460424aeae13555c35d  /docker-entrypoint-initdb.d/init.sql
    ```
    Si tu hash no coincide con este, tu imagen no se construyó igual que la de referencia (por ejemplo, si modificaste el `Dockerfile` o partiste de un checkout distinto) — reconstruye desde un clon limpio del repositorio antes de continuar.
 
@@ -36,7 +36,6 @@ Este proyecto contiene la configuración de Docker para crear y cargar automáti
    ```bash
    docker compose ps
    ```
-   La primera carga de datos de `mysqllab` (varios millones de filas) tarda **~2-3 minutos**. Durante ese tiempo el contenedor se ve como `starting` (no `healthy` todavía) — es normal, espera a que cambie a `healthy` antes de conectarte o hacer consultas; si consultas antes de tiempo, verás tablas con menos filas de las esperadas (o en 0) porque la carga sigue en curso.
 
 4. **Conectarse a MySQL**:
    ```bash
