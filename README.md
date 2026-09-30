@@ -41,7 +41,7 @@ cd Aqualife_Database
 Solo iniciamos mysqllab por ahora es el unico que usamos ya que aun no vemos otros tipos de bases de datos
 
 ```Shell
-docker compose build --progress=plain        
+docker compose build --progress=plain      
 docker compose up -d mysqllab
 ```
 
@@ -80,12 +80,11 @@ docker compose down -v
 Para volver a iniciar la base de datos
 
 ```Shell
-docker compose build --progress=plain        
+docker compose build --progress=plain      
 docker compose up -d mysqllab
 ```
 
 Recuerden cada que quieran trastear en la base de datos hacer el comando del paso 4 en la terminal
-
 
 # HAGAN LO SIGUIENTE A MI ME SIRVIO
 
@@ -124,3 +123,5 @@ rm: cannot remove '/docker-entrypoint-initdb.d/init.sql': Permission denied
 2026-09-26T22:50:51.801117Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060, socket: /var/run/mysqld/mysqlx.sock
 2026-09-26T22:50:51.801322Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.46'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  MySQL Community Server - GPL.
 ```
+
+1

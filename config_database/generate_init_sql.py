@@ -25,6 +25,7 @@ _INICIO = time.monotonic()
 def log(mensaje):
     print(f"[{time.monotonic() - _INICIO:7.2f}s] {mensaje}", flush=True)
 
+
 # Semilla y fecha de referencia usadas cuando no se pasan --seed / --date,
 # para que el resultado sea reproducible por defecto.
 DEFAULT_SEED = 33
@@ -38,10 +39,10 @@ CONFIG = {
     "usuarios": 2000,
     "videos": 2000,
     "fotos": 2000,
-    "especies": 4000,              # cantidad de especies (peces/invertebrados/plantas/corales)
-    "productos_equipo": 2000,      # cantidad de productos que NO son especies (equipos, alimento, etc.)
-    "tipos_agua": 10,              # <= tamaño del catálogo TIPOS_AGUA
-    "cuidados_especificos": 30,    # <= tamaño del catálogo CUIDADOS_ESPECIFICOS
+    "especies": 4000,  # cantidad de especies (peces/invertebrados/plantas/corales)
+    "productos_equipo": 2000,  # cantidad de productos que NO son especies (equipos, alimento, etc.)
+    "tipos_agua": 10,  # <= tamaño del catálogo TIPOS_AGUA
+    "cuidados_especificos": 30,  # <= tamaño del catálogo CUIDADOS_ESPECIFICOS
     "publicaciones": 2000,
     "comentarios": 1100000,
     "reacciones": 1100000,
@@ -60,24 +61,108 @@ REFERENCE_DATE = DEFAULT_REFERENCE_DATE
 # ---------------------------------------------------------------------------
 
 NOMBRES = [
-    "Juan", "Luis", "Carlos", "Jorge", "Pedro", "Ana", "María", "Elena", "Laura", "Sonia",
-    "Marta", "Julia", "Diego", "Miguel", "Rafael", "Gabriel", "Fernando", "Ricardo", "Andrés",
-    "Alejandro", "Beatriz", "Camila", "Daniela", "Valentina", "Isabel", "Lucía", "Paula",
-    "Patricia", "Claudia", "Rosa", "Teresa", "Victoria", "Adriana", "Cristina", "Mónica",
-    "Sergio", "Roberto", "Alberto", "Eduardo", "Francisco", "Manuel", "Antonio", "Javier",
-    "Raúl", "Óscar", "Ivonne", "Yolanda", "Susana", "Verónica", "Silvia",
+    "Juan",
+    "Luis",
+    "Carlos",
+    "Jorge",
+    "Pedro",
+    "Ana",
+    "María",
+    "Elena",
+    "Laura",
+    "Sonia",
+    "Marta",
+    "Julia",
+    "Diego",
+    "Miguel",
+    "Rafael",
+    "Gabriel",
+    "Fernando",
+    "Ricardo",
+    "Andrés",
+    "Alejandro",
+    "Beatriz",
+    "Camila",
+    "Daniela",
+    "Valentina",
+    "Isabel",
+    "Lucía",
+    "Paula",
+    "Patricia",
+    "Claudia",
+    "Rosa",
+    "Teresa",
+    "Victoria",
+    "Adriana",
+    "Cristina",
+    "Mónica",
+    "Sergio",
+    "Roberto",
+    "Alberto",
+    "Eduardo",
+    "Francisco",
+    "Manuel",
+    "Antonio",
+    "Javier",
+    "Raúl",
+    "Óscar",
+    "Ivonne",
+    "Yolanda",
+    "Susana",
+    "Verónica",
+    "Silvia",
 ]
 
 APELLIDOS = [
-    "Perez", "Gomez", "Sánchez", "López", "Rodríguez", "García", "Martínez", "Torres",
-    "Ramírez", "Ruiz", "Fernández", "Álvarez", "Díaz", "Castro", "Morales", "Ortiz",
-    "Vargas", "Reyes", "Jiménez", "Romero", "Herrera", "Medina", "Flores", "Suárez",
-    "Guerrero", "Rojas", "Núñez", "Delgado", "Vega", "Molina",
+    "Perez",
+    "Gomez",
+    "Sánchez",
+    "López",
+    "Rodríguez",
+    "García",
+    "Martínez",
+    "Torres",
+    "Ramírez",
+    "Ruiz",
+    "Fernández",
+    "Álvarez",
+    "Díaz",
+    "Castro",
+    "Morales",
+    "Ortiz",
+    "Vargas",
+    "Reyes",
+    "Jiménez",
+    "Romero",
+    "Herrera",
+    "Medina",
+    "Flores",
+    "Suárez",
+    "Guerrero",
+    "Rojas",
+    "Núñez",
+    "Delgado",
+    "Vega",
+    "Molina",
 ]
 
 CALLES = [
-    "Ramírez", "Gomez", "Sánchez", "López", "Rodríguez", "García", "Martínez", "Torres",
-    "Perez", "Ruiz", "Alameda", "Marina", "Coral", "Del Puerto", "Los Pinos", "Las Palmas",
+    "Ramírez",
+    "Gomez",
+    "Sánchez",
+    "López",
+    "Rodríguez",
+    "García",
+    "Martínez",
+    "Torres",
+    "Perez",
+    "Ruiz",
+    "Alameda",
+    "Marina",
+    "Coral",
+    "Del Puerto",
+    "Los Pinos",
+    "Las Palmas",
 ]
 
 DOMINIOS_EMAIL = ["email.com", "correo.com", "mailbox.com", "webmail.com"]
@@ -86,17 +171,29 @@ NOTIFICACIONES = ["activada", "desactivada"]
 PRIVACIDAD = ["No compartir", "Compartir parcial", "Compartir totalmente"]
 
 TIPOS_AGUA = [
-    "Agua dulce tropical", "Agua dulce fría", "Agua marina / arrecife", "Agua salobre",
-    "Agua dulce blackwater", "Agua dulce plantada (CO2)", "Agua marina fish-only",
-    "Agua dulce rift lake (cíclidos africanos)", "Agua dulce de estanque exterior",
+    "Agua dulce tropical",
+    "Agua dulce fría",
+    "Agua marina / arrecife",
+    "Agua salobre",
+    "Agua dulce blackwater",
+    "Agua dulce plantada (CO2)",
+    "Agua marina fish-only",
+    "Agua dulce rift lake (cíclidos africanos)",
+    "Agua dulce de estanque exterior",
     "Agua marina de baja salinidad",
 ]
 
 TEMPORADAS = ["Primavera", "Verano", "Otoño", "Invierno"]
 
 TIPOS_SUSTRATO = [
-    "Arena fina", "Grava fina", "Grava gruesa", "Sustrato fértil", "Roca volcánica",
-    "Sustrato de coral triturado", "Sin sustrato (agua libre)", "Turba",
+    "Arena fina",
+    "Grava fina",
+    "Grava gruesa",
+    "Sustrato fértil",
+    "Roca volcánica",
+    "Sustrato de coral triturado",
+    "Sin sustrato (agua libre)",
+    "Turba",
 ]
 
 CUIDADOS_ESPECIFICOS = [
@@ -204,28 +301,88 @@ ESPECIES_POOL = [
 
 # (Nombre, Descripcion)
 PRODUCTOS_EQUIPO_POOL = [
-    ("Filtro de Cascada Compacto", "Filtracion mecanica y biologica eficiente para acuarios de hasta 100 litros."),
-    ("Calentador Termostatico Sumergible", "Mantiene la temperatura del agua estable para especies tropicales."),
-    ("Iluminacion LED Full Spectrum", "Espectro completo de luz para favorecer plantas y corales."),
-    ("Skimmer de Proteinas Compacto", "Elimina compuestos organicos disueltos en acuarios marinos."),
-    ("Bomba de Circulacion Ajustable", "Genera corriente controlada, ideal para acuarios de arrecife."),
-    ("Kit de Pruebas de Agua Completo", "Mide pH, amoniaco, nitritos, nitratos, dureza y cloro."),
-    ("Sustrato Fertil para Plantas", "Rico en nutrientes, favorece el enraizamiento de plantas acuaticas."),
-    ("Grava Decorativa de Rio", "Sustrato inerte de grano fino, ideal para acuarios comunitarios."),
-    ("Alimento en Escamas Premium", "Formula balanceada para peces tropicales de agua dulce."),
-    ("Alimento Congelado para Corales", "Mezcla de zooplancton para corales y anemonas."),
-    ("Acondicionador de Agua", "Neutraliza cloro y metales pesados, protege la mucosa de los peces."),
+    (
+        "Filtro de Cascada Compacto",
+        "Filtracion mecanica y biologica eficiente para acuarios de hasta 100 litros.",
+    ),
+    (
+        "Calentador Termostatico Sumergible",
+        "Mantiene la temperatura del agua estable para especies tropicales.",
+    ),
+    (
+        "Iluminacion LED Full Spectrum",
+        "Espectro completo de luz para favorecer plantas y corales.",
+    ),
+    (
+        "Skimmer de Proteinas Compacto",
+        "Elimina compuestos organicos disueltos en acuarios marinos.",
+    ),
+    (
+        "Bomba de Circulacion Ajustable",
+        "Genera corriente controlada, ideal para acuarios de arrecife.",
+    ),
+    (
+        "Kit de Pruebas de Agua Completo",
+        "Mide pH, amoniaco, nitritos, nitratos, dureza y cloro.",
+    ),
+    (
+        "Sustrato Fertil para Plantas",
+        "Rico en nutrientes, favorece el enraizamiento de plantas acuaticas.",
+    ),
+    (
+        "Grava Decorativa de Rio",
+        "Sustrato inerte de grano fino, ideal para acuarios comunitarios.",
+    ),
+    (
+        "Alimento en Escamas Premium",
+        "Formula balanceada para peces tropicales de agua dulce.",
+    ),
+    (
+        "Alimento Congelado para Corales",
+        "Mezcla de zooplancton para corales y anemonas.",
+    ),
+    (
+        "Acondicionador de Agua",
+        "Neutraliza cloro y metales pesados, protege la mucosa de los peces.",
+    ),
     ("Sal Marina Sintetica", "Mezcla de sales para preparar agua marina artificial."),
-    ("Decoracion de Resina Tipo Roca", "Replica realista de roca volcanica, segura para acuarios."),
-    ("Cueva Ceramica para Peces", "Refugio decorativo, ideal para especies territoriales."),
-    ("Termometro Digital Sumergible", "Medicion precisa de temperatura con pantalla LCD."),
-    ("Aireador de Doble Salida", "Bomba de aire silenciosa con dos salidas ajustables."),
-    ("Red de Pesca de Malla Fina", "Ideal para capturar alevines y camarones sin danarlos."),
-    ("Fertilizante Liquido para Plantas", "Aporta micronutrientes esenciales para el crecimiento vegetal."),
-    ("Difusor de CO2 Ceramico", "Disuelve CO2 en finas burbujas para plantas exigentes."),
-    ("Alimentador Automatico Programable", "Dosifica raciones de alimento en horarios programados."),
+    (
+        "Decoracion de Resina Tipo Roca",
+        "Replica realista de roca volcanica, segura para acuarios.",
+    ),
+    (
+        "Cueva Ceramica para Peces",
+        "Refugio decorativo, ideal para especies territoriales.",
+    ),
+    (
+        "Termometro Digital Sumergible",
+        "Medicion precisa de temperatura con pantalla LCD.",
+    ),
+    (
+        "Aireador de Doble Salida",
+        "Bomba de aire silenciosa con dos salidas ajustables.",
+    ),
+    (
+        "Red de Pesca de Malla Fina",
+        "Ideal para capturar alevines y camarones sin danarlos.",
+    ),
+    (
+        "Fertilizante Liquido para Plantas",
+        "Aporta micronutrientes esenciales para el crecimiento vegetal.",
+    ),
+    (
+        "Difusor de CO2 Ceramico",
+        "Disuelve CO2 en finas burbujas para plantas exigentes.",
+    ),
+    (
+        "Alimentador Automatico Programable",
+        "Dosifica raciones de alimento en horarios programados.",
+    ),
     ("Bomba de Retorno Silenciosa", "Alta eficiencia energetica, bajo nivel de ruido."),
-    ("Corales Artificiales Decorativos", "Replicas de silicona, seguras y de colores vivos."),
+    (
+        "Corales Artificiales Decorativos",
+        "Replicas de silicona, seguras y de colores vivos.",
+    ),
     ("Filtro de Mochila HOB", "Facil mantenimiento, filtracion mecanica y quimica."),
     ("Piedra Difusora de Aire", "Genera burbujas finas para mejorar la oxigenacion."),
     ("Medidor de Salinidad", "Refractometro de precision para agua marina."),
@@ -270,7 +427,14 @@ COMENTARIOS_POOL = [
     "Yo tuve un problema similar con mi acuario.",
 ]
 
-REACCION_TIPOS = ["Me gusta", "Me encanta", "Me asombra", "Me entristece", "Me enoja", "Me divierte"]
+REACCION_TIPOS = [
+    "Me gusta",
+    "Me encanta",
+    "Me asombra",
+    "Me entristece",
+    "Me enoja",
+    "Me divierte",
+]
 
 OPINIONES_COMPRA = [
     "Excelente producto, muy recomendado.",
@@ -293,6 +457,7 @@ NOTAS_CONTRIBUCION = [
 # ---------------------------------------------------------------------------
 # Utilidades
 # ---------------------------------------------------------------------------
+
 
 def sql_str(value):
     if value is None:
@@ -358,37 +523,70 @@ def validar_configuracion(config):
             validado[clave] = maximo
 
     # Catalogos fijos: no tiene sentido pedir mas filas que opciones en el pool.
-    limitar("tipos_agua", len(TIPOS_AGUA), f"TIPOS_AGUA solo tiene {len(TIPOS_AGUA)} opciones")
-    limitar("cuidados_especificos", len(CUIDADOS_ESPECIFICOS),
-            f"CUIDADOS_ESPECIFICOS solo tiene {len(CUIDADOS_ESPECIFICOS)} opciones")
+    limitar(
+        "tipos_agua",
+        len(TIPOS_AGUA),
+        f"TIPOS_AGUA solo tiene {len(TIPOS_AGUA)} opciones",
+    )
+    limitar(
+        "cuidados_especificos",
+        len(CUIDADOS_ESPECIFICOS),
+        f"CUIDADOS_ESPECIFICOS solo tiene {len(CUIDADOS_ESPECIFICOS)} opciones",
+    )
 
     # Tablas N:M con clave primaria compuesta: el tope es el producto de los
     # tamanos de las tablas que relacionan.
     max_usuario_publicacion = validado["usuarios"] * validado["publicaciones"]
-    limitar("comentarios", max_usuario_publicacion, "combinaciones unicas de (usuario, publicacion)")
-    limitar("reacciones", max_usuario_publicacion, "combinaciones unicas de (usuario, publicacion)")
+    limitar(
+        "comentarios",
+        max_usuario_publicacion,
+        "combinaciones unicas de (usuario, publicacion)",
+    )
+    limitar(
+        "reacciones",
+        max_usuario_publicacion,
+        "combinaciones unicas de (usuario, publicacion)",
+    )
 
     max_usuario_especie = validado["usuarios"] * validado["especies"]
     limitar("gustar", max_usuario_especie, "combinaciones unicas de (usuario, especie)")
 
     max_publicacion_foto = validado["publicaciones"] * validado["fotos"]
-    limitar("tener_foto", max_publicacion_foto, "combinaciones unicas de (publicacion, foto)")
+    limitar(
+        "tener_foto",
+        max_publicacion_foto,
+        "combinaciones unicas de (publicacion, foto)",
+    )
 
     ventana_dias = 2 * 365
     n_productos_totales = validado["especies"] + validado["productos_equipo"]
     max_compras = validado["usuarios"] * n_productos_totales * ventana_dias
-    limitar("compras", max_compras,
-            "combinaciones unicas de (comprador, producto, fecha) en una ventana de 2 anios")
+    limitar(
+        "compras",
+        max_compras,
+        "combinaciones unicas de (comprador, producto, fecha) en una ventana de 2 anios",
+    )
 
     max_contribuciones = validado["especies"] * ventana_dias
-    limitar("contribuciones", max_contribuciones,
-            "combinaciones unicas de (especie, fecha) en una ventana de 2 anios")
+    limitar(
+        "contribuciones",
+        max_contribuciones,
+        "combinaciones unicas de (especie, fecha) en una ventana de 2 anios",
+    )
 
     max_contribucion_foto = validado["contribuciones"] * validado["fotos"]
-    limitar("contribucion_foto", max_contribucion_foto, "combinaciones unicas de (contribucion, foto)")
+    limitar(
+        "contribucion_foto",
+        max_contribucion_foto,
+        "combinaciones unicas de (contribucion, foto)",
+    )
 
     max_contribucion_video = validado["contribuciones"] * validado["videos"]
-    limitar("contribucion_video", max_contribucion_video, "combinaciones unicas de (contribucion, video)")
+    limitar(
+        "contribucion_video",
+        max_contribucion_video,
+        "combinaciones unicas de (contribucion, video)",
+    )
 
     if alertas:
         print("ALERTAS de configuracion (valores ajustados automaticamente):")
@@ -414,6 +612,7 @@ def insert_statement(table, columns, rows):
 # Generadores por tabla
 # ---------------------------------------------------------------------------
 
+
 def gen_usuarios(n):
     rows = []
     used_emails = set()
@@ -429,19 +628,35 @@ def gen_usuarios(n):
         while email in used_emails:
             email = f"{base_email}{i}{random.randint(0,999)}@{random.choice(DOMINIOS_EMAIL)}"
         used_emails.add(email)
-        fecha_nacimiento = date(random.randint(1955, 2007), random.randint(1, 12), random.randint(1, 28))
+        fecha_nacimiento = date(
+            random.randint(1955, 2007), random.randint(1, 12), random.randint(1, 28)
+        )
         notificaciones = random.choice(NOTIFICACIONES)
         privacidad = random.choice(PRIVACIDAD)
-        rows.append((nombre_completo, direccion, email, fecha_nacimiento.isoformat(), notificaciones, privacidad))
+        rows.append(
+            (
+                nombre_completo,
+                direccion,
+                email,
+                fecha_nacimiento.isoformat(),
+                notificaciones,
+                privacidad,
+            )
+        )
     return rows
 
 
 def gen_videos(n):
-    return [(f"https://www.youtube.com/{random.getrandbits(48):012x}",) for _ in range(n)]
+    return [
+        (f"https://www.youtube.com/{random.getrandbits(48):012x}",) for _ in range(n)
+    ]
 
 
 def gen_fotos(n):
-    return [(f"https://images.google.com/images/{random.getrandbits(40):010x}",) for _ in range(n)]
+    return [
+        (f"https://images.google.com/images/{random.getrandbits(40):010x}",)
+        for _ in range(n)
+    ]
 
 
 def gen_productos_equipo(n):
@@ -460,7 +675,13 @@ def gen_especies_productos(n):
     for _ in range(n):
         categoria, nombre_comun, nombre_cientifico = random.choice(ESPECIES_POOL)
         precio = round(random.uniform(1.5, 900.0), 2)
-        rows.append((nombre_comun, f"{categoria}: {nombre_comun} ({nombre_cientifico}).", precio))
+        rows.append(
+            (
+                nombre_comun,
+                f"{categoria}: {nombre_comun} ({nombre_cientifico}).",
+                precio,
+            )
+        )
         especies_info.append((categoria, nombre_comun, nombre_cientifico))
     return rows, especies_info
 
@@ -477,15 +698,29 @@ def gen_cuidados_especificos(n):
 
 def gen_especies(especies_info, n_tipos_agua, n_temporadas, n_cuidados):
     rows = []
-    for id_prod, (categoria, nombre_comun, nombre_cientifico) in enumerate(especies_info, start=1):
+    for id_prod, (categoria, nombre_comun, nombre_cientifico) in enumerate(
+        especies_info, start=1
+    ):
         tipo_sustrato = random.choice(TIPOS_SUSTRATO)
         horas_luz = random.randint(4, 14)
         litros_min = random.choice([10, 20, 40, 60, 100, 150, 200, 300, 500])
         id_ta = random.randint(1, n_tipos_agua)
         id_t = random.randint(1, n_temporadas)
         id_ce = random.randint(1, n_cuidados)
-        rows.append((id_prod, nombre_cientifico, nombre_comun, tipo_sustrato, categoria,
-                     horas_luz, litros_min, id_ta, id_t, id_ce))
+        rows.append(
+            (
+                id_prod,
+                nombre_cientifico,
+                nombre_comun,
+                tipo_sustrato,
+                categoria,
+                horas_luz,
+                litros_min,
+                id_ta,
+                id_t,
+                id_ce,
+            )
+        )
     return rows
 
 
@@ -541,7 +776,18 @@ def gen_compras(n, n_usuarios, n_productos, productos_precio):
         opinion = maybe_none(random.choice(OPINIONES_COMPRA), 0.5)
         puntuacion = maybe_none(random.randint(1, 5), 0.3)
         cantidad = random.randint(1, 5)
-        rows.append((id_uc, id_uv, id_prod, fecha.isoformat(), opinion, precio, puntuacion, cantidad))
+        rows.append(
+            (
+                id_uc,
+                id_uv,
+                id_prod,
+                fecha.isoformat(),
+                opinion,
+                precio,
+                puntuacion,
+                cantidad,
+            )
+        )
     return rows
 
 
@@ -780,6 +1026,7 @@ CREATE TABLE IF NOT EXISTS Contribucion_Video(
 # Ensamblado final
 # ---------------------------------------------------------------------------
 
+
 def build_sql(config, seed=None):
     if seed is not None:
         random.seed(seed)
@@ -790,11 +1037,20 @@ def build_sql(config, seed=None):
     usuarios = gen_usuarios(config["usuarios"])
     log(f"  -> {len(usuarios):,} filas")
     parts.append("-- Insertar datos en Usuario")
-    parts.append(insert_statement(
-        "Usuario",
-        ["Nombre", "DireccionParticular", "Email", "FechaDeNacimiento", "Notificaciones", "ConfiguracionDePrivacidad"],
-        usuarios,
-    ))
+    parts.append(
+        insert_statement(
+            "Usuario",
+            [
+                "Nombre",
+                "DireccionParticular",
+                "Email",
+                "FechaDeNacimiento",
+                "Notificaciones",
+                "ConfiguracionDePrivacidad",
+            ],
+            usuarios,
+        )
+    )
 
     log("Generando Video...")
     videos = gen_videos(config["videos"])
@@ -803,22 +1059,34 @@ def build_sql(config, seed=None):
     parts.append(insert_statement("Video", ["URL"], videos))
 
     log("Generando Publicacion...")
-    publicaciones = gen_publicaciones(config["publicaciones"], config["usuarios"], config["videos"])
+    publicaciones = gen_publicaciones(
+        config["publicaciones"], config["usuarios"], config["videos"]
+    )
     log(f"  -> {len(publicaciones):,} filas")
     parts.append("\n-- Insertar datos en Publicacion")
-    parts.append(insert_statement("Publicacion", ["Texto", "IDU", "IDV"], publicaciones))
+    parts.append(
+        insert_statement("Publicacion", ["Texto", "IDU", "IDV"], publicaciones)
+    )
 
     log("Generando Comentar...")
-    comentarios = gen_comentar(config["comentarios"], config["usuarios"], config["publicaciones"])
+    comentarios = gen_comentar(
+        config["comentarios"], config["usuarios"], config["publicaciones"]
+    )
     log(f"  -> {len(comentarios):,} filas")
     parts.append("\n-- Insertar datos en Comentar")
-    parts.append(insert_statement("Comentar", ["IDU", "IDPub", "Comentario"], comentarios))
+    parts.append(
+        insert_statement("Comentar", ["IDU", "IDPub", "Comentario"], comentarios)
+    )
 
     log("Generando Reaccionar...")
-    reacciones = gen_reaccionar(config["reacciones"], config["usuarios"], config["publicaciones"])
+    reacciones = gen_reaccionar(
+        config["reacciones"], config["usuarios"], config["publicaciones"]
+    )
     log(f"  -> {len(reacciones):,} filas")
     parts.append("\n-- Insertar datos en Reaccionar")
-    parts.append(insert_statement("Reaccionar", ["IDU", "IDPub", "Tipo", "Fecha"], reacciones))
+    parts.append(
+        insert_statement("Reaccionar", ["IDU", "IDPub", "Tipo", "Fecha"], reacciones)
+    )
 
     log("Generando Producto (especies + equipo)...")
     especies_productos, especies_info = gen_especies_productos(config["especies"])
@@ -826,7 +1094,11 @@ def build_sql(config, seed=None):
     todos_los_productos = especies_productos + productos_equipo
     log(f"  -> {len(todos_los_productos):,} filas")
     parts.append("\n-- Insertar datos en Producto (especies + equipo)")
-    parts.append(insert_statement("Producto", ["Nombre", "Descripcion", "Precio"], todos_los_productos))
+    parts.append(
+        insert_statement(
+            "Producto", ["Nombre", "Descripcion", "Precio"], todos_los_productos
+        )
+    )
 
     log("Generando TipoAgua...")
     tipos_agua = gen_tipos_agua(config["tipos_agua"])
@@ -846,15 +1118,29 @@ def build_sql(config, seed=None):
     parts.append(insert_statement("Cuidados_Especificos", ["Descripcion"], cuidados))
 
     log("Generando Especie...")
-    especies = gen_especies(especies_info, len(tipos_agua), len(TEMPORADAS), len(cuidados))
+    especies = gen_especies(
+        especies_info, len(tipos_agua), len(TEMPORADAS), len(cuidados)
+    )
     log(f"  -> {len(especies):,} filas")
     parts.append("\n-- Insertar datos en Especie")
-    parts.append(insert_statement(
-        "Especie",
-        ["IDProd", "NombreCientifico", "NombreComun", "TipoSustrato", "Categoria",
-         "HorasLuz", "LitrosMinimosTanque", "IDTA", "IDT", "IDCE"],
-        especies,
-    ))
+    parts.append(
+        insert_statement(
+            "Especie",
+            [
+                "IDProd",
+                "NombreCientifico",
+                "NombreComun",
+                "TipoSustrato",
+                "Categoria",
+                "HorasLuz",
+                "LitrosMinimosTanque",
+                "IDTA",
+                "IDT",
+                "IDCE",
+            ],
+            especies,
+        )
+    )
 
     log("Generando Gustar...")
     gustar = gen_gustar(config["gustar"], config["usuarios"], config["especies"])
@@ -864,14 +1150,30 @@ def build_sql(config, seed=None):
 
     log("Generando Compra...")
     productos_precio = [p[2] for p in todos_los_productos]
-    compras = gen_compras(config["compras"], config["usuarios"], len(todos_los_productos), productos_precio)
+    compras = gen_compras(
+        config["compras"],
+        config["usuarios"],
+        len(todos_los_productos),
+        productos_precio,
+    )
     log(f"  -> {len(compras):,} filas")
     parts.append("\n-- Insertar datos en Compra")
-    parts.append(insert_statement(
-        "Compra",
-        ["IDUC", "IDUV", "IDProd", "Fecha", "Opinion", "Precio", "Puntuacion", "Cantidad"],
-        compras,
-    ))
+    parts.append(
+        insert_statement(
+            "Compra",
+            [
+                "IDUC",
+                "IDUV",
+                "IDProd",
+                "Fecha",
+                "Opinion",
+                "Precio",
+                "Puntuacion",
+                "Cantidad",
+            ],
+            compras,
+        )
+    )
 
     log("Generando Foto...")
     fotos = gen_fotos(config["fotos"])
@@ -880,7 +1182,9 @@ def build_sql(config, seed=None):
     parts.append(insert_statement("Foto", ["URL"], fotos))
 
     log("Generando Tener_Foto...")
-    tener_foto = gen_tener_foto(config["tener_foto"], config["publicaciones"], config["fotos"])
+    tener_foto = gen_tener_foto(
+        config["tener_foto"], config["publicaciones"], config["fotos"]
+    )
     log(f"  -> {len(tener_foto):,} filas")
     parts.append("\n-- Insertar datos en Tener_Foto")
     parts.append(insert_statement("Tener_Foto", ["IDPub", "IDF"], tener_foto))
@@ -891,19 +1195,35 @@ def build_sql(config, seed=None):
     )
     log(f"  -> {len(contribuciones):,} filas")
     parts.append("\n-- Insertar datos en Contribucion")
-    parts.append(insert_statement("Contribucion", ["IDProd", "IDU", "Fecha", "Nota"], contribuciones))
+    parts.append(
+        insert_statement(
+            "Contribucion", ["IDProd", "IDU", "Fecha", "Nota"], contribuciones
+        )
+    )
 
     log("Generando Contribucion_Foto...")
-    contribucion_foto = gen_contribucion_media(config["contribucion_foto"], contribucion_keys, config["fotos"])
+    contribucion_foto = gen_contribucion_media(
+        config["contribucion_foto"], contribucion_keys, config["fotos"]
+    )
     log(f"  -> {len(contribucion_foto):,} filas")
     parts.append("\n-- Insertar datos en Contribucion_Foto")
-    parts.append(insert_statement("Contribucion_Foto", ["IDProd", "Fecha", "IDF"], contribucion_foto))
+    parts.append(
+        insert_statement(
+            "Contribucion_Foto", ["IDProd", "Fecha", "IDF"], contribucion_foto
+        )
+    )
 
     log("Generando Contribucion_Video...")
-    contribucion_video = gen_contribucion_media(config["contribucion_video"], contribucion_keys, config["videos"])
+    contribucion_video = gen_contribucion_media(
+        config["contribucion_video"], contribucion_keys, config["videos"]
+    )
     log(f"  -> {len(contribucion_video):,} filas")
     parts.append("\n-- Insertar datos en Contribucion_Video")
-    parts.append(insert_statement("Contribucion_Video", ["IDProd", "Fecha", "IDV"], contribucion_video))
+    parts.append(
+        insert_statement(
+            "Contribucion_Video", ["IDProd", "Fecha", "IDV"], contribucion_video
+        )
+    )
 
     log("Ensamblando init.sql final...")
     resultado = "\n".join(p for p in parts if p) + "\n"
@@ -923,15 +1243,21 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     parser.add_argument(
-        "--seed", type=int, default=DEFAULT_SEED,
+        "--seed",
+        type=int,
+        default=DEFAULT_SEED,
         help=f"Semilla aleatoria para datos reproducibles (por defecto {DEFAULT_SEED}).",
     )
     parser.add_argument(
-        "--output", type=str, default="init.sql",
+        "--output",
+        type=str,
+        default="init.sql",
         help="Ruta del archivo de salida (por defecto init.sql).",
     )
     parser.add_argument(
-        "--date", type=date.fromisoformat, default=DEFAULT_REFERENCE_DATE,
+        "--date",
+        type=date.fromisoformat,
+        default=DEFAULT_REFERENCE_DATE,
         help=(
             "Fecha de referencia (YYYY-MM-DD) para calcular las fechas relativas "
             f"de Compra/Reaccionar/Contribucion (por defecto {DEFAULT_REFERENCE_DATE.isoformat()})."
@@ -947,7 +1273,9 @@ def main():
     with open(args.output, "w", encoding="utf-8") as f:
         f.write(sql_text)
 
-    print(f"Generado {args.output} con datos aleatorios para AquaLife (seed={args.seed}, date={REFERENCE_DATE.isoformat()}).")
+    print(
+        f"Generado {args.output} con datos aleatorios para AquaLife (seed={args.seed}, date={REFERENCE_DATE.isoformat()})."
+    )
 
 
 if __name__ == "__main__":
