@@ -20,12 +20,12 @@
 
 ## Fase 1: Modelado Conceptual (MERX)
 
-- [ ] **1.1 Ingeniería Inversa sobre BD AquaLife**
-  - [ ] Analizar la estructura del script `init.sql` y las tablas provistas.
-- [ ] **1.2 Elaboración del Modelo**
-  - [ ] Diseñar la propuesta de Modelo Entidad-Relación Extendido (MERX) respetando la concepción vista en clases (usando *diagrams.net* o *Excalidraw*).
-- [ ] **1.3 Exportación**
-  - [ ] Exportar el diagrama en formato `.pdf` o `.png`/`.jpg` para la entrega final.
+- [X] **1.1 Ingeniería Inversa sobre BD AquaLife**
+  - [X] Analizar la estructura del script `init.sql` y las tablas provistas.
+- [X] **1.2 Elaboración del Modelo**
+  - [X] Diseñar la propuesta de Modelo Entidad-Relación Extendido (MERX) respetando la concepción vista en clases (usando *diagrams.net* o *Excalidraw*).
+- [X] **1.3 Exportación**
+  - [X] Exportar el diagrama en formato `.pdf` o `.png`/`.jpg` para la entrega final.
 
 ---
 
@@ -33,8 +33,8 @@
 
 ### Consultas Básicas / Intermedias
 
-- [ ] **3.a Termómetro de la comunidad:** Consulta que calcule la cantidad total de reacciones por publicación (bitácoras, fotos, dudas), con datos del post y autor.
-- [ ] **3.b Publicaciones mejor recibidas:** Consulta para identificar publicaciones con mayor número de reacciones positivas que negativas, con sus detalles y totales.
+- [X] **3.a Termómetro de la comunidad:** Consulta que calcule la cantidad total de reacciones por publicación (bitácoras, fotos, dudas), con datos del post y autor.
+- [X] **3.b Publicaciones mejor recibidas:** Consulta para identificar publicaciones con mayor número de reacciones positivas que negativas, con sus detalles y totales.
 - [ ] **3.c Perfil demográfico:** Consulta que analice la distribución de edades en rangos de 10 años (11-20, 21-30,...), retornando cantidad de usuarios y porcentaje.
 - [ ] **3.d Tendencias por tipo de agua:** Consulta sobre la variación de bitácoras de mantenimiento según el tipo de agua, identificando especie y categoría más popular.
 - [ ] **3.e Vendedores mejor calificados:** Consulta de los Top 5 vendedores (tiendas/criadores) por calificación promedio (incluir total vendidos, promedio, nombre, correo, dirección).
