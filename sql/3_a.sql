@@ -1,4 +1,3 @@
--- Pregunta 3a, Termometro de la comunidad
 SELECT pb.IDPub, Texto, pb.IDU, IDV,
     COUNT(r.IDPub) as Cantidad_Reacciones,
     u.Nombre, u.Email,

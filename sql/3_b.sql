@@ -1,5 +1,3 @@
--- Pregunta 3b Publicaciones mejor recibidas por la comunidad
-
 SELECT pb.IDPub, Texto, pb.IDU, pb.IDV,
     COUNT(r.IDPub) as Cantidad_Reacciones,
     SUM(CASE 
