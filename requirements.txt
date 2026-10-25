@@ -1,4 +1,5 @@
-polars>=1.0.0
+pathlib
+pandas
 pymysql>=1.1.0
 plotly>=6.0.0
 streamlit>=1.65
