@@ -1019,6 +1019,41 @@ CREATE TABLE IF NOT EXISTS Contribucion_Video(
     FOREIGN KEY cal_contrib(IDProd, Fecha) REFERENCES Contribucion(IDProd, Fecha) ON DELETE RESTRICT ON UPDATE CASCADE,
     FOREIGN KEY cal_video(IDV) REFERENCES Video(IDV) ON DELETE RESTRICT ON UPDATE CASCADE
 );
+
+CREATE TABLE Historial_Precios(
+    IDHistorial INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    IDProd INT NOT NULL,
+    PrecioAnterior DECIMAL(10, 2) NOT NULL,
+    PrecioNuevo DECIMAL(10, 2) NOT NULL,
+    FechaHora DATETIME DEFAULT CURRENT_TIMESTAMP,
+    NombreUsuario VARCHAR(20),
+    PorcentajeCambio DECIMAL(10, 2) ,
+    FOREIGN KEY (IDProd) REFERENCES Producto(IDProd)
+);
+
+DELIMITER //
+
+CREATE TRIGGER tgr_auditar_precio AFTER UPDATE
+    ON Producto
+    FOR EACH ROW BEGIN
+        INSERT INTO Historial_Precios(
+            IDProd,
+            PrecioAnterior,
+            PrecioNuevo,
+            PorcentajeCambio,
+            NombreUsuario
+        )
+        VALUES (
+            NEW.IDProd,
+            OLD.Precio,
+            NEW.Precio,
+            (NEW.Precio - OLD.Precio)/OLD.Precio * 100,
+            @nombre_usuario
+        );
+    END //
+
+DELIMITER ;
+	
 """.strip()
 
 
