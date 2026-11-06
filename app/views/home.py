@@ -15,5 +15,5 @@ col1, col2 = st.columns(2)
 with col1:
 	st.subheader('Analitica')
 	st.write('Consultas 3.a - 3.i')
-	st.page_link('views/querys.py', label='Selector de Consultas')
+	st.page_link('views/query_selector.py', label='Selector de Consultas')
 
