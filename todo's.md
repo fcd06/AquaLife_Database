@@ -35,18 +35,18 @@
 
 - [X] **3.a Termómetro de la comunidad:** Consulta que calcule la cantidad total de reacciones por publicación (bitácoras, fotos, dudas), con datos del post y autor.
 - [X] **3.b Publicaciones mejor recibidas:** Consulta para identificar publicaciones con mayor número de reacciones positivas que negativas, con sus detalles y totales.
-- [ ] **3.c Perfil demográfico:** Consulta que analice la distribución de edades en rangos de 10 años (11-20, 21-30,...), retornando cantidad de usuarios y porcentaje.
-- [ ] **3.d Tendencias por tipo de agua:** Consulta sobre la variación de bitácoras de mantenimiento según el tipo de agua, identificando especie y categoría más popular.
-- [ ] **3.e Vendedores mejor calificados:** Consulta de los Top 5 vendedores (tiendas/criadores) por calificación promedio (incluir total vendidos, promedio, nombre, correo, dirección).
+- [X] **3.c Perfil demográfico:** Consulta que analice la distribución de edades en rangos de 10 años (11-20, 21-30,...), retornando cantidad de usuarios y porcentaje.
+- [X] **3.d Tendencias por tipo de agua:** Consulta sobre la variación de bitácoras de mantenimiento según el tipo de agua, identificando especie y categoría más popular.
+- [X] **3.e Vendedores mejor calificados:** Consulta de los Top 5 vendedores (tiendas/criadores) por calificación promedio (incluir total vendidos, promedio, nombre, correo, dirección).
 
 ### Lógica Avanzada (Triggers, SP y Métricas Complejas)
 
-- [ ] **3.f Trigger de auditoría de precios:**
-  - [ ] Crear la tabla `Historial_Precios` para almacenar auditorías (producto, precio anterior, precio nuevo, fecha, hora, usuario, % de cambio).
-  - [ ] Implementar el `TRIGGER` `AFTER UPDATE` sobre la tabla de productos.
-- [ ] **3.g Procedimiento Almacenado `sp_analisis_usuario`:**
-  - [ ] Crear el SP que tome: `(id_usuario, fecha_inicio, fecha_fin)`.
-  - [ ] Retornar: Total publicaciones, reacciones (dadas/recibidas), comentarios, compras, monto gastado, contribuciones, especie más comprada y especie más contribuida.
+- [X] **3.f Trigger de auditoría de precios:**
+  - [X] Crear la tabla `Historial_Precios` para almacenar auditorías (producto, precio anterior, precio nuevo, fecha, hora, usuario, % de cambio).
+  - [X] Implementar el `TRIGGER` `AFTER UPDATE` sobre la tabla de productos.
+- [X] **3.g Procedimiento Almacenado `sp_analisis_usuario`:**
+  - [X] Crear el SP que tome: `(id_usuario, fecha_inicio, fecha_fin)`.
+  - [X] Retornar: Total publicaciones, reacciones (dadas/recibidas), comentarios, compras, monto gastado, contribuciones, especie más comprada y especie más contribuida.
 - [ ] **3.h Análisis de influencers y ventas:**
   - [ ] Identificar Top 5 influencers según puntaje ponderado: Me gusta = 1, Me encanta = 2, Me asombra = 1.5, Comentarios = 2.
   - [ ] Determinar especies de mayor interacción por influencer.
@@ -89,12 +89,12 @@
 
 ## Fase 5: Desarrollo del Dashboard interactivo en Streamlit (Tarea 6)
 
-- [ ] **6.1 Configuración Base de Streamlit**
-  - [ ] Crear estructura en la carpeta `app/` conectada a MySQL/NoSQL usando drivers nativos (`pymysql`/`mysql-connector-python`, `pymongo`, etc.).
-- [ ] **6.2 Módulo 1: Selector de Consultas SQL**
-  - [ ] Implementar menú desplegable para ejecutar y mostrar en tablas interactivas las consultas de las tareas 3.a a 3.i.
-- [ ] **6.3 Módulo 2: Perfil de Usuario (`sp_analisis_usuario`)**
-  - [ ] Formulario con inputs para ID de usuario, Fecha Inicio y Fecha Fin que ejecute el procedimiento almacenado y presente los resultados en gráficos/métricas.
+- [X] **6.1 Configuración Base de Streamlit**
+  - [X] Crear estructura en la carpeta `app/` conectada a MySQL/NoSQL usando drivers nativos (`pymysql`/`mysql-connector-python`, `pymongo`, etc.).
+- [X] **6.2 Módulo 1: Selector de Consultas SQL**
+  - [X] Implementar menú desplegable para ejecutar y mostrar en tablas interactivas las consultas de las tareas 3.a a 3.i.
+- [X] **6.3 Módulo 2: Perfil de Usuario (`sp_analisis_usuario`)**
+  - [X] Formulario con inputs para ID de usuario, Fecha Inicio y Fecha Fin que ejecute el procedimiento almacenado y presente los resultados en gráficos/métricas.
 - [ ] **6.4 Módulo 3: Gestor de Conversaciones en Hilos**
   - [ ] Interfaz interactiva para navegar por hilos de comentarios y agregar nuevas respuestas.
 - [ ] **6.5 Módulo 4: Explorador de Documentos Jerárquicos**
