@@ -1,19 +1,7 @@
-/*
-Procedimiento almancenado para revisa el perfil de actividad de un usuario
-Parametros IDU, fecha inicio y fecha fianl del periodo evaluado
-
-Total de publicaciones realizadas en el perıodo
-Total de reacciones dadas y recibidas
-Total de comentarios realizados
-Total de compras y monto gastado
-Total de contribuciones (bitacoras de mantenimiento) realizadas
-Especie mias comprada y especie mas contribuida
-
-*/
-
 DELIMITER //
 
-CREATE PROCEDURE sp_analisis_usuario(
+CREATE PROCEDURE
+    sp_analisis_usuario(
         IN id_usuario INT,
         IN fecha_inicio DATE,
         IN fecha_fin DATE

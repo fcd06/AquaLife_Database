@@ -26,7 +26,7 @@ def execute_dql(name: str):
 	finally :
 		connect.close()
 
-
+@st.cache_data()
 def execute_dml(sql: str, params: tuple = (), session_vars: dict | None = None):
 
 	connect = connection()
@@ -39,3 +39,24 @@ def execute_dml(sql: str, params: tuple = (), session_vars: dict | None = None):
 		connect.commit()
 	finally:
 		connect.close()
+
+@st.cache_data()
+def execute_sp_user_analisys(params: tuple = ()):
+	connect = connection()
+	try:
+		with connect.cursor(pymysql.cursors.DictCursor) as cur:
+			cur.execute(
+				'CALL sp_analisis_usuario(%s, %s, %s)',
+				params
+			)
+			result = {}
+			while 1:
+				res = cur.fetchone()
+				if res:
+					result.update(res)
+				if not cur.nextset():
+					break
+			return result
+	finally:
+		connect.close()
+
