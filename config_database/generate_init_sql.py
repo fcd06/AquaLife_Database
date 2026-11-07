@@ -537,11 +537,7 @@ def validar_configuracion(config):
     # Tablas N:M con clave primaria compuesta: el tope es el producto de los
     # tamanos de las tablas que relacionan.
     max_usuario_publicacion = validado["usuarios"] * validado["publicaciones"]
-    limitar(
-        "comentarios",
-        max_usuario_publicacion,
-        "combinaciones unicas de (usuario, publicacion)",
-    )
+    # PK de Comentar ya no es (IDU, IDPub); es auto-increment, no hay límite de pares únicos
     limitar(
         "reacciones",
         max_usuario_publicacion,
@@ -730,13 +726,44 @@ def gen_publicaciones(n, n_usuarios, n_videos):
         texto = random.choice(PUBLICACION_TEXTOS)
         id_u = random.randint(1, n_usuarios)
         id_v = random.randint(1, n_videos) if random.random() < 0.5 else None
-        rows.append((texto, id_u, id_v))
+        # Fecha en ventana de 2 años (igual que Compra/Reaccionar)
+        fecha = random_date(1, 2 * 365)
+        fecha_str = fecha.isoformat() + " " + f"{random.randint(0,23):02d}:{random.randint(0,59):02d}:{random.randint(0,59):02d}"
+        rows.append((texto, id_u, id_v, fecha_str))
     return rows
 
 
 def gen_comentar(n, n_usuarios, n_publicaciones):
-    pares = unique_pairs(n_usuarios, n_publicaciones, n)
-    return [(u, p, random.choice(COMENTARIOS_POOL)) for u, p in pares]
+    """Genera comentarios jerárquicos: raíces + respuestas con IDPadre."""
+    rows = []
+    comentarios_creados = []  # IDs auto-increment esperados (1, 2, 3...)
+    
+    n_raiz = int(n * 0.7)
+    
+    # Comentarios raíz (sin padre)
+    for i in range(n_raiz):
+        id_u = random.randint(1, n_usuarios)
+        id_pub = random.randint(1, n_publicaciones)
+        comentario = random.choice(COMENTARIOS_POOL)
+        fecha = random_date(1, 5 * 365)
+        fecha_str = fecha.isoformat() + " " + f"{random.randint(0,23):02d}:{random.randint(0,59):02d}:{random.randint(0,59):02d}"
+        rows.append((id_u, id_pub, None, comentario, fecha_str))
+        comentarios_creados.append(i + 1)  # IDComentario = 1, 2, 3...
+    
+    # Respuestas (referencian IDComentario ya generados)
+    for _ in range(n - n_raiz):
+        if not comentarios_creados:
+            break
+        id_padre = random.choice(comentarios_creados)
+        id_u = random.randint(1, n_usuarios)
+        id_pub = random.randint(1, n_publicaciones)
+        comentario = random.choice(COMENTARIOS_POOL)
+        fecha = random_date(1, 5 * 365)
+        fecha_str = fecha.isoformat() + " " + f"{random.randint(0,23):02d}:{random.randint(0,59):02d}:{random.randint(0,59):02d}"
+        rows.append((id_u, id_pub, id_padre, comentario, fecha_str))
+        comentarios_creados.append(len(comentarios_creados) + 1)
+    
+    return rows
 
 
 def gen_reaccionar(n, n_usuarios, n_publicaciones):
@@ -874,6 +901,7 @@ CREATE TABLE IF NOT EXISTS Publicacion(
     Texto VARCHAR(700),
     IDU INT NOT NULL,
     IDV INT,
+    FechaCreacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY cal_usuario(IDU) REFERENCES Usuario(IDU) ON DELETE RESTRICT ON UPDATE CASCADE,
     FOREIGN KEY cal_video(IDV) REFERENCES Video(IDV) ON DELETE RESTRICT ON UPDATE CASCADE,
     PRIMARY KEY (IDPub)
@@ -881,12 +909,15 @@ CREATE TABLE IF NOT EXISTS Publicacion(
 
 -- Crear tabla Comentar
 CREATE TABLE IF NOT EXISTS Comentar(
+    IDComentario INT AUTO_INCREMENT PRIMARY KEY,
     IDU INT NOT NULL,
     IDPub INT NOT NULL,
+    IDPadre INT NULL,
     Comentario VARCHAR(400) NOT NULL,
-    PRIMARY KEY(IDU, IDPub),
-    FOREIGN KEY cal_usuario(IDU) REFERENCES Usuario(IDU) ON DELETE RESTRICT ON UPDATE CASCADE,
-    FOREIGN KEY cal_pub(IDPub) REFERENCES Publicacion(IDPub) ON DELETE RESTRICT ON UPDATE CASCADE
+    FechaCreacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (IDU) REFERENCES Usuario(IDU) ON DELETE RESTRICT ON UPDATE CASCADE,
+    FOREIGN KEY (IDPub) REFERENCES Publicacion(IDPub) ON DELETE RESTRICT ON UPDATE CASCADE,
+    FOREIGN KEY (IDPadre) REFERENCES Comentar(IDComentario) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- Crear tabla Reaccionar
@@ -1037,7 +1068,9 @@ DELIMITER //
 
 CREATE TRIGGER tgr_auditar_precio AFTER UPDATE
     ON Producto
-    FOR EACH ROW BEGIN
+    FOR EACH ROW
+BEGIN
+    IF NEW.Precio <> OLD.Precio THEN
         INSERT INTO Historial_Precios(
             IDProd,
             PrecioAnterior,
@@ -1049,10 +1082,11 @@ CREATE TRIGGER tgr_auditar_precio AFTER UPDATE
             NEW.IDProd,
             OLD.Precio,
             NEW.Precio,
-            (NEW.Precio - OLD.Precio)/OLD.Precio * 100,
+            ROUND((NEW.Precio - OLD.Precio) / OLD.Precio * 100, 2),
             @nombre_usuario
         );
-    END //
+    END IF;
+END //
 
 DELIMITER ;
 
@@ -1187,7 +1221,7 @@ def build_sql(config, seed=None):
     log(f"  -> {len(publicaciones):,} filas")
     parts.append("\n-- Insertar datos en Publicacion")
     parts.append(
-        insert_statement("Publicacion", ["Texto", "IDU", "IDV"], publicaciones)
+        insert_statement("Publicacion", ["Texto", "IDU", "IDV", "FechaCreacion"], publicaciones)
     )
 
     log("Generando Comentar...")
@@ -1197,7 +1231,7 @@ def build_sql(config, seed=None):
     log(f"  -> {len(comentarios):,} filas")
     parts.append("\n-- Insertar datos en Comentar")
     parts.append(
-        insert_statement("Comentar", ["IDU", "IDPub", "Comentario"], comentarios)
+        insert_statement("Comentar", ["IDU", "IDPub", "IDPadre", "Comentario", "FechaCreacion"], comentarios)
     )
 
     log("Generando Reaccionar...")

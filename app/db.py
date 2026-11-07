@@ -12,7 +12,8 @@ def connection():
 		port = 3306,
 		user = 'aqualife_user',
 		password = 'aqualife_pass',
-		database = 'AquaLife'
+		database = 'AquaLife',
+		charset = 'utf8mb4'
 	)
 
 @st.cache_data()
@@ -26,7 +27,6 @@ def execute_dql(name: str):
 	finally :
 		connect.close()
 
-@st.cache_data()
 def execute_dml(sql: str, params: tuple = (), session_vars: dict | None = None):
 
 	connect = connection()
@@ -40,8 +40,7 @@ def execute_dml(sql: str, params: tuple = (), session_vars: dict | None = None):
 	finally:
 		connect.close()
 
-@st.cache_data()
-def execute_sp_user_analisys(params: tuple = ()):
+def execute_sp_user_analisis(params: tuple = ()):
 	connect = connection()
 	try:
 		with connect.cursor(pymysql.cursors.DictCursor) as cur:

@@ -2,7 +2,7 @@
 
 import pandas as pd
 import streamlit as st
-from db import execute_sp_user_analisys
+from db import execute_sp_user_analisis
 
 st.title('Análisis de usuario')
 
@@ -23,7 +23,7 @@ if enviar:
 		st.stop()
 
 	with st.spinner("Ejecutando procedimiento..."):
-		resultado = execute_sp_user_analisys((id_usuario, fecha_inicio, fecha_fin))
+		resultado = execute_sp_user_analisis((id_usuario, fecha_inicio, fecha_fin))
 
 	if not resultado:
 		st.warning(f"No se encontraron datos para el usuario {id_usuario}.")
