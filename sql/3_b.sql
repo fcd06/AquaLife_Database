@@ -13,10 +13,4 @@ SELECT pb.IDPub, Texto, pb.IDU, pb.IDV,
         ON r.IDPub = pb.IDPub
     GROUP BY pb.IDPub
     HAVING
-    (SUM(CASE 
-        WHEN r.Tipo IN ('Me gusta', 'Me asombra', 'Me encanta', 'Me divierte')
-        THEN 1 ELSE 0 
-    END) > SUM(CASE
-        WHEN r.Tipo IN ('Me enoja', 'Me entristece')
-        THEN 1 ELSE 0
-    END));
+    Reacciones_positivas > Reacciones_negativas;
