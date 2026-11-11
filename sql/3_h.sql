@@ -1,14 +1,3 @@
-/*
-
-    1) puntaje de interaccion ponderado
-        Me gusta=1, 
-        Me encanta=2, 
-        Me asombra=1,5, 
-        comentarios=2
-    
-    Por cada usuario ver sus publicaciones y contar para todas las 
-    publicaciones su puntaje ponderado es decir reacciones + cometarios
-*/
 WITH influencers AS (
     SELECT u.IDU, SUM(puntaje.puntaje) as puntaje_ponderado
         FROM Usuario as u
@@ -54,7 +43,7 @@ especies AS (
                 puntaje_ponderado,
                 ROW_NUMBER() OVER (
                     PARTITION BY IDU
-                    ORDER BY interacciones DESC 
+                    ORDER BY interacciones DESC, NombreCientifico
                 ) as rn
             FROM(
                 SELECT 
@@ -105,10 +94,74 @@ especies AS (
                     ON i.IDU = universo.IDU
                 ) as table1
             ) as table2
-        WHERE rn <= 10
-        )
-
-SELECT i.IDU, i.puntaje_ponderado, e.NombreCientifico, e.interacciones
+        WHERE rn <= 3
+        ), 
+eventos AS (
+    SELECT IDU, DATE(Fecha) as Fecha
+    /* Publicacion o contribucion que hizo el influencer con su fecha */
+    FROM (
+        SELECT p.IDU, p.FechaCreacion as Fecha
+            FROM Publicacion as p
+            JOIN influencers as i
+                ON i.IDU = p.IDU
+        UNION
+        SELECT c.IDU, Fecha
+            FROM Contribucion as c
+            JOIN influencers as i
+                ON i.IDU = c.IDU
+    ) as universo ),
+ventas AS (
+    /* ventas diarias de cada especie */
+    SELECT NombreCientifico, c.Fecha,
+        SUM(c.Cantidad) as cantidad_ventas
+        FROM especies as es
+        JOIN Compra as c
+            ON c.IDProd IN (
+                SELECT IDProd
+                    FROM Especie as e
+                    WHERE e.NombreCientifico = es.NombreCientifico
+            )
+        GROUP BY NombreCientifico, c.Fecha
+),
+ventas_evento AS (
+    SELECT ev.IDU,
+        es.NombreCientifico,
+        ev.Fecha,
+        IFNULL(SUM(
+            CASE WHEN v.Fecha BETWEEN ev.Fecha - INTERVAL 14 DAY 
+                AND ev.Fecha - INTERVAL 1 DAY 
+                THEN v.cantidad_ventas ELSE 0
+            END), 0) as ventas_antes,
+        IFNULL(SUM(
+            CASE WHEN v.Fecha BETWEEN ev.Fecha + INTERVAL 1 DAY 
+                AND  ev.Fecha + INTERVAL 14 DAY
+                THEN v.cantidad_ventas ELSE 0
+            END), 0) as ventas_despues
+        FROM eventos as ev
+        LEFT JOIN ventas as v
+            ON v.Fecha BETWEEN ev.Fecha - INTERVAL 14 DAY
+                AND ev.Fecha + INTERVAL 14 DAY
+        JOIN especies as es
+            ON ev.IDU = es.IDU
+        GROUP BY ev.IDU, es.NombreCientifico, ev.Fecha
+),
+incremento AS (
+    SELECT ve.IDU, ve.NombreCientifico,
+        AVG(CASE WHEN ve.ventas_antes > 0
+                THEN (ve.ventas_despues - ve.ventas_antes)/(ve.ventas_antes) * 100
+            END) as incremento_porcentual
+        FROM ventas_evento as ve 
+        GROUP BY ve.IDU, ve.NombreCientifico
+)
+SELECT i.IDU, 
+    i.puntaje_ponderado, 
+    e.NombreCientifico, 
+    e.interacciones,
+    ROUND(inc.incremento_porcentual, 2) as incremento_procentual
     FROM influencers as i
     JOIN especies as e
         ON e.IDU = i.IDU
+    LEFT JOIN incremento as inc
+        ON inc.IDU = i.IDU 
+        AND inc.NombreCientifico = e.NombreCientifico
+
